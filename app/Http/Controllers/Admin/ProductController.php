@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         $products = (new Product)->newQuery();
 
         if (request()->has('search')) {
@@ -29,9 +31,9 @@ class ProductController extends Controller
 
             $products->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'like', $searchTerm)
-                      ->orWhere('description', 'like', $searchTerm)
-                      ->orWhere('price', 'like', $searchTerm)
-                      ->orWhere('quantity', 'like', $searchTerm);
+                    ->orWhere('description', 'like', $searchTerm)
+                    ->orWhere('price', 'like', $searchTerm)
+                    ->orWhere('quantity', 'like', $searchTerm);
             });
         }
 
@@ -69,7 +71,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'description' => ['required','max:255'],
+            'price' => ['required','max:255'],
+            'quantity' => ['required','max:255'],
+        ]);
+        return Auth::User()->id;
+        $user = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+        ]);
+        return redirect()->route('product.index')->with('message', 'Product created successfully.');
     }
 
     /**
@@ -91,7 +106,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return 'oppss';
     }
 
     /**

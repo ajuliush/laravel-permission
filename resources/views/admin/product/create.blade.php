@@ -27,7 +27,15 @@
 						</div>
 						<div class="py-2">
 							<label for="name" class="block font-medium text-sm text-gray-700{{$errors->has('description') ? ' text-red-400' : ''}}">{{ __('Description') }}</label>
-							<input id="name" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full{{$errors->has('description') ? ' border-red-400' : ''}}" type="text" name="name" value="{{ old('name') }}" />
+							<input id="name" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full{{$errors->has('description') ? ' border-red-400' : ''}}" type="text" name="description" value="{{ old('description') }}" />
+						</div>
+						<div class="py-2">
+							<label for="name" class="block font-medium text-sm text-gray-700{{$errors->has('price') ? ' text-red-400' : ''}}">{{ __('Price') }}</label>
+							<input id="name" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full{{$errors->has('price') ? ' border-red-400' : ''}}" type="number" name="price" value="{{ old('price') }}" />
+						</div>
+						<div class="py-2">
+							<label for="name" class="block font-medium text-sm text-gray-700{{$errors->has('quantity') ? ' text-red-400' : ''}}">{{ __('Quantity') }}</label>
+							<input id="name" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full{{$errors->has('quantity') ? ' border-red-400' : ''}}" type="number" name="quantity" value="{{ old('quantity') }}" />
 						</div>
 						<div class="flex justify-end mt-4">
 							<button type='submit' class='inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'>
