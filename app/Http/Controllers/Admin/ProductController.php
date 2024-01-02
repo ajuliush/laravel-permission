@@ -106,7 +106,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return 'oppss';
+        return view('admin.product.edit',get_defined_vars());
     }
 
     /**
@@ -118,7 +118,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate(['name' => 'required:'.config('product.table_names.products', 'products').',name,'.$product->id,
+        'description' => 'required',
+        'price' => 'required',
+        'quantity' => 'required',
+    ]);
+        $product->update(['name' => $request->name , 'description' => $request->description , 'price' => $request->price ,'quantity' => $request->quantity ]);
+        return redirect()->route('product.index')->with('message','Product updated successfully.');
     }
 
     /**
@@ -129,6 +135,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('product.index')->with('message','Product deleted successfully');
     }
 }
