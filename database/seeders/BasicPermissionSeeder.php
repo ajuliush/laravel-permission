@@ -22,6 +22,10 @@ class BasicPermissionSeeder extends Seeder
 
         // create permissions
         $permissions = [
+            'product list',
+            'product create',
+            'product edit',
+            'product delete',
             'permission list',
             'permission create',
             'permission edit',
@@ -44,7 +48,7 @@ class BasicPermissionSeeder extends Seeder
         $role1->givePermissionTo('role list');
         $role1->givePermissionTo('user list');
         $role2 = Role::create(['name' => 'admin']);
-        
+
         foreach ($permissions as $permission) {
             $role2->givePermissionTo($permission);
         }
