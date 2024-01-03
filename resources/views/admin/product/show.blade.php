@@ -60,7 +60,7 @@
      window.onload = function() {
     // Print specific div
     var divToPrint = document.getElementById("yourDivId");
-    var printWindow = window.open('height=500,width=500');
+    var printWindow = window.open('', '', 'height=1500,width=1500');
     printWindow.document.write('<html><head><title>Print</title>');
     printWindow.document.write('<style>@media print { body { margin: 0; padding: 0; } .print-content { width: 100%; } .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; } .block { display: block; } .font-medium { font-weight: 500; } .text-sm { font-size: 0.875rem; } .text-gray-700 { color: #4b5563; } .text-red-400 { color: #f87171; } .rounded-md { border-radius: 0.375rem; } .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); } .border-gray-300 { border-color: #e5e7eb; } .focus:border-indigo-300 { --tw-border-opacity: 1; border-color: rgba(66, 153, 225, var(--tw-border-opacity)); border-color: #93c5fd; } .focus:ring { --tw-ring-opacity: 1; ring-color: rgba(66, 153, 225, var(--tw-ring-opacity)); ring-color: #93c5fd; } .focus:ring-opacity-50 { --tw-ring-opacity: 0.5; } .mt-1 { margin-top: 0.25rem; } .w-full { width: 100%; } .border-red-400 { border-color: #f87171; } }</style>');
     printWindow.document.write('</head><body>'); // Start writing the content of the new window
