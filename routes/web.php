@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,11 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [AuthenticatedSessionController::class, 'create'])
+->name('login');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
