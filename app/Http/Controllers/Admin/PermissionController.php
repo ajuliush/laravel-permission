@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionController extends Controller
 {
@@ -16,16 +17,17 @@ class PermissionController extends Controller
 
     function __construct()
     {
-         $this->middleware('can:permission list', ['only' => ['index','show']]);
-         $this->middleware('can:permission create', ['only' => ['create','store']]);
-         $this->middleware('can:permission edit', ['only' => ['edit','update']]);
-         $this->middleware('can:permission delete', ['only' => ['destroy']]);
+        $this->middleware('can:permission list', ['only' => ['index', 'show']]);
+        $this->middleware('can:permission create', ['only' => ['create', 'store']]);
+        $this->middleware('can:permission edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:permission delete', ['only' => ['destroy']]);
     }
 
     public function index()
     {
+        $user = Auth::user();
         $permissions = Permission::latest()->paginate(5);
-        return view('admin.permission.index',compact('permissions'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('admin.permission.index', compact('permissions', 'user'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -46,9 +48,9 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|string|max:255|unique:'.config('permission.table_names.permissions', 'permissions').',name',]);
-        Permission::create(['name' => $request->name , 'guard_name'=> 'web' ]);
-        return redirect()->route('permission.index')->with('message','Permission created successfully.');
+        $request->validate(['name' => 'required|string|max:255|unique:' . config('permission.table_names.permissions', 'permissions') . ',name',]);
+        Permission::create(['name' => $request->name, 'guard_name' => 'web']);
+        return redirect()->route('permission.index')->with('message', 'Permission created successfully.');
     }
 
     /**
@@ -59,7 +61,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        return view('admin.permission.show',compact('permission'));
+        return view('admin.permission.show', compact('permission'));
     }
 
     /**
@@ -70,7 +72,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        return view('admin.permission.edit',compact('permission'));
+        return view('admin.permission.edit', compact('permission'));
     }
 
     /**
@@ -82,9 +84,9 @@ class PermissionController extends Controller
      */
     public function update(Request $request, Permission $permission)
     {
-        $request->validate(['name' => 'required|string|max:255|unique:'.config('permission.table_names.permissions', 'permissions').',name,'.$permission->id,]);
-        $permission->update(['name' => $request->name , 'guard_name'=> 'web' ]);
-        return redirect()->route('permission.index')->with('message','Permission updated successfully.');
+        $request->validate(['name' => 'required|string|max:255|unique:' . config('permission.table_names.permissions', 'permissions') . ',name,' . $permission->id,]);
+        $permission->update(['name' => $request->name, 'guard_name' => 'web']);
+        return redirect()->route('permission.index')->with('message', 'Permission updated successfully.');
     }
 
     /**
@@ -96,6 +98,6 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('permission.index')->with('message','Permission deleted successfully');
+        return redirect()->route('permission.index')->with('message', 'Permission deleted successfully');
     }
 }

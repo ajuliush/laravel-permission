@@ -73,11 +73,10 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:255'],
-            'description' => ['required','max:255'],
-            'price' => ['required','max:255'],
-            'quantity' => ['required','max:255'],
+            'description' => ['required', 'max:255'],
+            'price' => ['required', 'max:255'],
+            'quantity' => ['required', 'max:255'],
         ]);
-        return Auth::User()->id;
         $user = Product::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -95,7 +94,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.product.show',get_defined_vars());
+        return view('admin.product.show', get_defined_vars());
     }
 
     /**
@@ -106,7 +105,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit',get_defined_vars());
+        return view('admin.product.edit', get_defined_vars());
     }
 
     /**
@@ -118,13 +117,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $request->validate(['name' => 'required:'.config('product.table_names.products', 'products').',name,'.$product->id,
-        'description' => 'required',
-        'price' => 'required',
-        'quantity' => 'required',
-    ]);
-        $product->update(['name' => $request->name , 'description' => $request->description , 'price' => $request->price ,'quantity' => $request->quantity ]);
-        return redirect()->route('product.index')->with('message','Product updated successfully.');
+        $request->validate([
+            'name' => 'required:' . config('product.table_names.products', 'products') . ',name,' . $product->id,
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        ]);
+        $product->update(['name' => $request->name, 'description' => $request->description, 'price' => $request->price, 'quantity' => $request->quantity]);
+        return redirect()->route('product.index')->with('message', 'Product updated successfully.');
     }
 
     /**
@@ -136,6 +136,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('product.index')->with('message','Product deleted successfully');
+        return redirect()->route('product.index')->with('message', 'Product deleted successfully');
     }
 }

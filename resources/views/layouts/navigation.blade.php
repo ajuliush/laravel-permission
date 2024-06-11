@@ -15,11 +15,32 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.index')">{{ __('Permission') }}</x-nav-link>
-                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.index')">{{ __('Roles') }}</x-nav-link>
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">{{ __('Users') }}</x-nav-link>
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">{{ __('Products') }}</x-nav-link>
+
+                    @can('permission list')
+                    <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.index')">
+                        {{ __('Permission') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('role list')
+                    <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.index')">
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('user list')
+                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    @endcan
+
+                    @can('product list')
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                        {{ __('Products') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -41,12 +62,11 @@
                         <!-- Authentication -->
                         <x-dropdown-link :href="route('admin.profile.info')" :active="request()->routeIs('admin.account.info')">
                             {{ __('My Account') }}
-		                </x-dropdown-link>
+                        </x-dropdown-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -74,17 +94,17 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.index')">
-				{{ __('Permission') }}
-			</x-responsive-nav-link>
+                {{ __('Permission') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('role.index')" :active="request()->routeIs('role.index')">
-				{{ __('Roles') }}
-			</x-responsive-nav-link>
-			<x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
-				{{ __('Users') }}
-			</x-responsive-nav-link>
-			<x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
-				{{ __('Products') }}
-			</x-responsive-nav-link>
+                {{ __('Roles') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
+                {{ __('Users') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                {{ __('Products') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -97,12 +117,11 @@
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
                 <x-dropdown-link :href="route('admin.profile.info')" :active="request()->routeIs('admin.account.info')">{{ __('My Account') }}
-		        </x-dropdown-link>
+                </x-dropdown-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
