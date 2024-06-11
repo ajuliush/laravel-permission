@@ -18,26 +18,26 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/', [AuthenticatedSessionController::class, 'create'])
-->name('login');
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['auth'])->group(function() {
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->middleware(['auth'])->group(function () {
 
     Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
     Route::resource('user', UserController::class);
     Route::resource('product', ProductController::class);
 
-    Route::get('edit-account-info',[UserController::class,'profileInformation'])->name('admin.profile.info');
-    Route::post('edit-account-info',[UserController::class,'profileInformationStore'])->name('admin.profile.info.store');
-    Route::post('change-password',[UserController::class,'changePasswordStore'])->name('admin.profile.password.store');
+    Route::get('edit-account-info', [UserController::class, 'profileInformation'])->name('admin.profile.info');
+    Route::post('edit-account-info', [UserController::class, 'profileInformationStore'])->name('admin.profile.info.store');
+    Route::post('change-password', [UserController::class, 'changePasswordStore'])->name('admin.profile.password.store');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
